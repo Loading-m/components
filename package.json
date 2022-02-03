@@ -2,7 +2,11 @@
 	"name": "viking-ship",
 	"version": "0.1.0",
 	"private": true,
+	"module": "build/index.js",
+	"types": "build/index.d.ts",
 	"dependencies": {
+		"@babel/cli": "^7.16.8",
+		"@babel/preset-react": "^7.16.7",
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
 		"@fortawesome/react-fontawesome": "^0.1.17",
@@ -22,16 +26,21 @@
 		"react-dom": "^17.0.2",
 		"react-scripts": "5.0.0",
 		"react-transition-group": "^4.4.2",
-		"typescript": "^4.4.2",
+		"storybook": "^6.4.17",
+		"typescript": "^4.2.4",
 		"web-vitals": "^2.1.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "npm run clean && npm run build-ts && npm run build-css",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"storybook": "start-storybook -p 9009 -s public",
-		"build-storybook": "build-storybook -s public"
+		"build-storybook": "build-storybook -s public",
+		"sbuild": "babel .storybook/my-addon/src --out-dir ./dist",
+		"build-ts": "tsc -p tsconfig.build.json",
+		"build-css": "node-sass ./src/styles/index.scss ./build/index.css",
+		"clean": "rimraf ./build"
 	},
 	"eslintConfig": {
 		"extends": [
@@ -59,6 +68,8 @@
 		"@storybook/react": "^6.4.16",
 		"css-loader": "^6.5.1",
 		"node-sass": "^7.0.1",
+		"react-docgen-typescript-loader": "^3.7.2",
+		"rimraf": "^3.0.2",
 		"sass": "^1.49.0",
 		"sass-loader": "^12.4.0",
 		"style-loader": "^3.3.1"
